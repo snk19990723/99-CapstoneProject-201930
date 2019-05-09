@@ -15,7 +15,7 @@ import mqtt_remote_method_calls as mqtt
 import m1_laptop_code as m1
 import m3_laptop_code as m3
 
- 
+
 def get_my_frame(root, window, mqtt_sender):
     # Construct your frame:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
