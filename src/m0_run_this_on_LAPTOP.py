@@ -3,7 +3,7 @@
   Displays the Graphical User Interface (GUI) and communicates with the robot.
 
   Authors:  Your professors (for the framework)
-    and Deng Zou    .
+    and Deng Zou.
   Spring term, 2018-2019.
 """
 # Done 1:  Put the name of EACH team member in the above.
@@ -51,8 +51,8 @@ def main():
     mqtt_sender = mqtt.MqttClient(delegate)
     delegate.set_mqtt_sender(mqtt_sender)
 
-    mqtt_sender.connect_to_ev3(lego_robot_number=99)
-    # TODO 3: Replace 99 in the above by YOUR team's robot number.
+    mqtt_sender.connect_to_ev3(lego_robot_number=3)
+    # DONE 3: Replace 99 in the above by YOUR team's robot number.
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
