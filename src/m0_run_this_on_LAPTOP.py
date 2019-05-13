@@ -38,8 +38,8 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title("Team XX: XX, XX and XX")
-    # TODO 2:  Fill in the XX's above appropriately for your team.
+    root.title("Team 03: Deng Zou and Haozhe Wu")
+    # DONE 2:  Fill in the XX's above appropriately for your team.
 
     # -------------------------------------------------------------------------
     # Construct a delegate (for responding to MQTT messages from the robot)
@@ -50,7 +50,6 @@ def main():
     delegate = DelegateForLaptopCode(root)
     mqtt_sender = mqtt.MqttClient(delegate)
     delegate.set_mqtt_sender(mqtt_sender)
-
     mqtt_sender.connect_to_ev3(lego_robot_number=3)
     # DONE 3: Replace 99 in the above by YOUR team's robot number.
 
