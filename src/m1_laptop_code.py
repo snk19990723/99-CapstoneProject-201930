@@ -25,7 +25,7 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
-    go_forward_button = ttk.Button(frame, text='push it, push me')
+    go_forward_button = ttk.Button(frame, text='笨比冲锋！')
     go_forward_button.grid()
 
 
