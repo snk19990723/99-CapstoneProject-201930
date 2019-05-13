@@ -22,7 +22,8 @@ def get_my_frame(root, window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Haozhe_Wu")
     frame_label.grid()
     # TODO 2: Put your name in the above.
-
+    arm_up=ttk.Button(frame,text="arm_up")
+    arm_up.grid()
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
 
