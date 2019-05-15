@@ -25,8 +25,22 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+
     go_forward_button = ttk.Button(frame, text='笨比冲锋！')
     go_forward_button.grid()
+    go_backward_button= ttk.Button(frame, text='全军撤退！')
+    go_backward_button.grid()
+
+    speed=ttk.Entry(frame)
+    speed.insert(0,'50')
+    # speed_label=ttk.Label(frame,text='speed of motors')
+    # speed_label.insert(0,"100")
+    speed.grid()
+
+    inches=ttk.Entry(frame)
+    inches.grid()
+
+    go_forward_button["command"]= lambda: forward(speed,inches,mqtt_sender)
 
 
     # Return your frame:
@@ -50,3 +64,8 @@ class MyLaptopDelegate(object):
 
 
 # TODO: Add functions here as needed.
+def forward(speed,inches,mqtt_sender):
+    print('motor message:', speed.get())
+    print('target distance:', inches.get())
+    mqtt_sender.send_message('forward',[speed.get(),inches])
+
