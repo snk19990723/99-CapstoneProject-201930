@@ -30,7 +30,25 @@ class MyRobotDelegate(object):
         """ Tells the robot to stop moving. """
         print_message_received("stop")
         self.robot.drive_system.stop()
+    def spin_left(self,speed,inches):
+        self.robot.drive_system.go(-speed,speed)
+        while True:
+            if self.robot.drive_system.left_motor.get_position()>=inches \
+                    and self.robot.drive_system.right_motor.get_position()>=inches:
+                self.robot.drive_system.left_motor.reset_position()
+                self.robot.drive_system.right_motor.reset_position()
+                break
+        self.robot.drive_system.stop()
 
+    def spin_right(self, speed, inches):
+        self.robot.drive_system.go(speed, -speed)
+        while True:
+            if self.robot.drive_system.left_motor.get_position() >= inches \
+                    and self.robot.drive_system.right_motor.get_position() >= inches:
+                self.robot.drive_system.left_motor.reset_position()
+                self.robot.drive_system.right_motor.reset_position()
+                break
+        self.robot.drive_system.stop()
     # TODO: Add methods here as needed.
 
 
