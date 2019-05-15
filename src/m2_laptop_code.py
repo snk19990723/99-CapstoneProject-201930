@@ -22,11 +22,20 @@ def get_my_frame(root, window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Haozhe_Wu")
     frame_label.grid()
     # TODO 2: Put your name in the above.
-    arm_up=ttk.Button(frame,text="arm_up")
-    arm_up.grid()
+    spin_left_button=ttk.Button(frame,text="spin_left")
+    spin_left_button.grid()
+    spin_right_button=ttk.Button(frame,text='spin right')
+    spin_right_button.grid()
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
-
+    speed_entry=ttk.Entry(frame,width=8)
+    speed_entry.insert(0,"100")
+    speed_entry.grid()
+    distance_entry=ttk.Entry(frame,width=8)
+    distance_entry.insert(0,'')
+    distance_entry.grid()
+    spin_left_button["command"]=lambda:spin_left(speed_entry,distance_entry,mqtt_sender)
+    spin_right_button["command"]=lambda:spin_right(speed_entry,distance_entry,mqtt_sender)
     # Return your frame:
     return frame
 
@@ -48,3 +57,22 @@ class MyLaptopDelegate(object):
 
 
 # TODO: Add functions here as needed.
+def spin_left(speed_entry,distance_entry,mqtt_sender):
+        speed=int(speed_entry.get())
+        distance=int(distance_entry.get())
+        left_motor_distance=distance
+        right_motor_distance=distance
+        left_motor_speed = -speed
+        right_motor_speed=speed
+        mqtt_sender.send_message('spin_left',[left_motor_speed,right_motor_speed,left_motor_distance,right_motor_distance])
+def spin_right(speed_entry,distance_entry,mqtt_sender):
+        speed=int(speed_entry.get())
+        distance = int(distance_entry.get())
+        left_motor_distance = distance
+        right_motor_distance = distance
+        left_motor_speed=speed
+        right_motor_speed=-speed
+        mqtt_sender.send_message('spin_right',[left_motor_speed,right_motor_speed,left_motor_distance,right_motor_distance])
+        print('left motor speed is',left_motor_speed)
+        print('right motor speed is', right_motor_speed)
+        print('distance traveled is', distance)
