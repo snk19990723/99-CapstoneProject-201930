@@ -66,13 +66,16 @@ class MyLaptopDelegate(object):
 
 # TODO: Add functions here as needed.
 def forward(speed,inches,mqtt_sender):
+    norm_speed = int(speed.get())
+    norm_inches = int(inches.get())
     print('motor message:', speed.get())
     print('target distance:', inches.get())
-    mqtt_sender.send_message('forward',[speed.get(),inches.get()])
+    mqtt_sender.send_message('forward',[norm_speed,norm_inches])
 
 def backward(speed,inches,mqtt_sender):
     norm_speed=int(speed.get())
+    norm_inches=int(inches.get())
     print('motor message:', -norm_speed)
     print('target distance:', inches.get())
-    mqtt_sender.send_message('backward', [-norm_speed, inches.get()])
+    mqtt_sender.send_message('backward', [-norm_speed, norm_inches])
 
