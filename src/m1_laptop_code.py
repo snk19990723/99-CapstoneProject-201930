@@ -31,6 +31,7 @@ def get_my_frame(root, window, mqtt_sender):
     go_backward_button= ttk.Button(frame, text='全军撤退！')
     go_backward_button.grid()
 
+
     speed=ttk.Entry(frame)
     speed.insert(0,'50')
     # speed_label=ttk.Label(frame,text='speed of motors')
@@ -41,7 +42,7 @@ def get_my_frame(root, window, mqtt_sender):
     inches.grid()
 
     go_forward_button["command"]= lambda: forward(speed,inches,mqtt_sender)
-
+    go_backward_button["command"]= lambda: backward(speed,inches,mqtt_sender)
 
     # Return your frame:
     return frame
@@ -67,5 +68,11 @@ class MyLaptopDelegate(object):
 def forward(speed,inches,mqtt_sender):
     print('motor message:', speed.get())
     print('target distance:', inches.get())
-    mqtt_sender.send_message('forward',[speed.get(),inches])
+    mqtt_sender.send_message('forward',[speed.get(),inches.get()])
+
+def backward(speed,inches,mqtt_sender):
+    norm_speed=int(speed.get())
+    print('motor message:', -norm_speed)
+    print('target distance:', inches.get())
+    mqtt_sender.send_message('backward', [-norm_speed, inches.get()])
 

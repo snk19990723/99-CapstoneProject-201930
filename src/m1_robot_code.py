@@ -33,10 +33,13 @@ class MyRobotDelegate(object):
 
     # TODO: Add methods here as needed.
     def forward(self,speed,inches):
+        print_message_received("forward",[speed,inches])
         self.robot.drive_system.go(speed,speed)
         while True:
             if self.robot.drive_system.left_motor.get_position()>=inches \
-                    and self.robot.drive_system.left_motor.get_position()>=inches:
+                    and self.robot.drive_system.right_motor.get_position()>=inches:
+                self.robot.drive_system.left_motor.reset_position()
+                self.robot.drive_system.right_motor.reset_position()
                 break
         self.robot.drive_system.stop()
 
@@ -44,7 +47,9 @@ class MyRobotDelegate(object):
         self.robot.drive_system.go(-speed,-speed)
         while True:
             if self.robot.drive_system.left_motor.get_position()>=inches \
-                    and self.robot.drive_system.left_motor.get_position()>=inches:
+                    and self.robot.drive_system.right_motor.get_position()>=inches:
+                self.robot.drive_system.left_motor.reset_position()
+                self.robot.drive_system.right_motor.reset_position()
                 break
         self.robot.drive_system.stop()
 
