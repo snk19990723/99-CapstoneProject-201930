@@ -65,6 +65,9 @@ def spin_left(speed_entry,distance_entry,mqtt_sender):
         left_motor_speed = -speed
         right_motor_speed=speed
         mqtt_sender.send_message('spin_left',[left_motor_speed,right_motor_speed,left_motor_distance,right_motor_distance])
+        print('left motor speed is', left_motor_speed)
+        print('right motor speed is', right_motor_speed)
+        print('distance traveled is', distance)
 def spin_right(speed_entry,distance_entry,mqtt_sender):
         speed=int(speed_entry.get())
         distance = int(distance_entry.get())
