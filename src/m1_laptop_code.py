@@ -30,18 +30,24 @@ def get_my_frame(root, window, mqtt_sender):
     go_forward_button.grid()
     go_backward_button= ttk.Button(frame, text='RETREAT！')
     go_backward_button.grid()
-
+    go_until_distance_button=ttk.Button(frame,text='Stop right there!')
+    go_until_distance_button.grid()
 
     speed=ttk.Entry(frame)
-    speed.insert(0,'50')
+    speed.insert(0,'how fast you want?')
     speed.grid()
 
     inches=ttk.Entry(frame)
-    inches.insert(0,'360')
+    inches.insert(0,'how far to run?')
     inches.grid()
+
+    X=ttk.Entry(frame)
+    X.insert(0,'when to stop?')
+    X.grid()
 
     go_forward_button["command"]= lambda: forward(speed,inches,mqtt_sender)
     go_backward_button["command"]= lambda: backward(speed,inches,mqtt_sender)
+    go_until_distance_button["command"]= lambda: go_until_distance(X,speed,mqtt_sender)
 
     # Return your frame:
     return frame
@@ -79,4 +85,11 @@ def backward(speed,inches,mqtt_sender):
     print('motor message:', -norm_speed)
     print('target distance:', -norm_inches)
     mqtt_sender.send_message('backward', [norm_speed, norm_inches])
+
+def go_until_distance(X,speed,mqtt_sender):
+    norm_X=int(X.get())
+    norm_speed=int(speed.get())
+    print('X value',norm_X)
+    print('motor speed',norm_speed)
+    mqtt_sender.send_message('go_until_distance',[norm_X,norm_speed])
 

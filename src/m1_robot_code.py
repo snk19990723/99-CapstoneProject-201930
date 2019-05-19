@@ -33,27 +33,54 @@ class MyRobotDelegate(object):
 
     # TODO: Add methods here as needed.
     def forward(self,speed,inches):
+        degree = inches * 90
         print_message_received("forward",[speed,inches])
         self.robot.drive_system.go(speed,speed)
         while True:
-            if self.robot.drive_system.left_motor.get_position()>=inches \
-                    and self.robot.drive_system.right_motor.get_position()>=inches:
-                # self.robot.drive_system.left_motor.reset_position()
-                # self.robot.drive_system.right_motor.reset_position()
+            if self.robot.drive_system.left_motor.get_position()>=degree \
+                    and self.robot.drive_system.right_motor.get_position()>=degree:
                 break
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.right_motor.reset_position()
         self.robot.drive_system.stop()
 
     def backward(self,speed,inches):
+        degree=inches*90
         print_message_received("backward", [-speed, -inches])
         self.robot.drive_system.go(-speed,-speed)
         while True:
-            if abs(self.robot.drive_system.left_motor.get_position())>=inches \
-                    and abs(self.robot.drive_system.right_motor.get_position())>=inches:
+            if abs(self.robot.drive_system.left_motor.get_position())>=degree \
+                    and abs(self.robot.drive_system.right_motor.get_position())>=degree:
                 break
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.right_motor.reset_position()
+        self.robot.drive_system.stop()
+
+    def go_until_distance(self,X,speed):
+        self.robot.drive_system.go(speed,speed)
+        while True:
+            list = []
+            count_max=0
+            count_min=0
+            sum=0
+            for k in range (5):
+                num = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+                list=list+[num]
+            for k in range(5):
+                if list[count_max]>list[k]:
+                    count_max=k
+                if list[count_min]<list[k]:
+                    count_min=k
+            list.remove(list[count_min])
+            list.remove(list[count_max-1])
+            for k in range(3):
+                sum=sum+list[k]
+            average=sum/3
+            print(average)
+
+            if average <=X:
+                break
+
         self.robot.drive_system.stop()
 
 def print_message_received(method_name, arguments):
