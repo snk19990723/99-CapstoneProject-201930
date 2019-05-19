@@ -30,7 +30,7 @@ def get_my_frame(root, window, mqtt_sender):
     go_forward_button.grid()
     go_backward_button= ttk.Button(frame, text='RETREAT！')
     go_backward_button.grid()
-    go_until_distance_button=ttk.Button(frame,text='Stop right there!')
+    go_until_distance_button=ttk.Button(frame,text='乖乖站好!')
     go_until_distance_button.grid()
 
     speed=ttk.Entry(frame)
